@@ -308,19 +308,19 @@ The API includes an optimized debt settlement algorithm that minimizes the numbe
 ### Example
 
 **Before Optimization:**
-- Alice paid $300, Bob owes Alice $100, Charlie owes Alice $100, David owes Alice $100
+- Alice paid ₹300, Bob owes Alice ₹100, Charlie owes Alice ₹100, David owes Alice ₹100
 - **Transactions needed: 3** (Bob→Alice, Charlie→Alice, David→Alice)
 
 **After Optimization (same scenario):**
 - The algorithm keeps it at 3 transactions (already optimal)
 
 **Complex Example:**
-- Alice: +$150 (owed)
-- Bob: -$50 (owes)
-- Charlie: -$50 (owes)
-- David: -$50 (owes)
+- Alice: +₹150 (owed)
+- Bob: -₹50 (owes)
+- Charlie: -₹50 (owes)
+- David: -₹50 (owes)
 
-**Result:** 3 transactions (Bob→Alice $50, Charlie→Alice $50, David→Alice $50)
+**Result:** 3 transactions (Bob→Alice ₹50, Charlie→Alice ₹50, David→Alice ₹50)
 
 ### Algorithm Complexity
 
