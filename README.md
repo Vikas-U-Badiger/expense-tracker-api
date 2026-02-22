@@ -428,10 +428,4 @@ export DB_NAME=expense_tracker
 
 2. Run the application
 
-## License
 
-MIT License
-
-## Author
-
-Created for Infosys Capstone Project
