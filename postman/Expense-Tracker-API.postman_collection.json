@@ -1,0 +1,852 @@
+{
+  "info": {
+    "_postman_id": "expense-tracker-api-collection",
+    "name": "Expense Tracker API",
+    "description": "Complete API collection for Expense Tracker - Split bills and track shared expenses",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "Health",
+      "item": [
+        {
+          "name": "Health Check",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/health",
+              "host": ["{{base_url}}"],
+              "path": ["health"]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Authentication",
+      "item": [
+        {
+          "name": "Register User",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"Alice Johnson\",\n  \"email\": \"alice@example.com\",\n  \"password\": \"password123\"\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/api/v1/users/register",
+              "host": ["{{base_url}}"],
+              "path": ["api", "v1", "users", "register"]
+            },
+            "description": "Register a new user account"
+          },
+          "response": []
+        },
+        {
+          "name": "Login",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"email\": \"alice@example.com\",\n  \"password\": \"password123\"\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/api/v1/users/login",
+              "host": ["{{base_url}}"],
+              "path": ["api", "v1", "users", "login"]
+            },
+            "description": "Login and get JWT token"
+          },
+          "response": []
+        },
+        {
+          "name": "Get Current User",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/api/v1/users/me",
+              "host": ["{{base_url}}"],
+              "path": ["api", "v1", "users", "me"]
+            },
+            "description": "Get current authenticated user profile"
+          },
+          "response": []
+        },
+        {
+          "name": "Update Current User",
+          "request": {
+            "method": "PATCH",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"Alice Smith\"\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/api/v1/users/me",
+              "host": ["{{base_url}}"],
+              "path": ["api", "v1", "users", "me"]
+            },
+            "description": "Update current user profile"
+          },
+          "response": []
+        },
+        {
+          "name": "Get User Dashboard",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/api/v1/users/dashboard",
+              "host": ["{{base_url}}"],
+              "path": ["api", "v1", "users", "dashboard"]
+            },
+            "description": "Get user dashboard with balance information"
+          },
+          "response": []
+        },
+        {
+          "name": "List Users",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/api/v1/users?page=1&page_size=10",
+              "host": ["{{base_url}}"],
+              "path": ["api", "v1", "users"],
+              "query": [
+                {
+                  "key": "page",
+                  "value": "1"
+                },
+                {
+                  "key": "page_size",
+                  "value": "10"
+                }
+              ]
+            },
+            "description": "List all users with pagination"
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Groups",
+      "item": [
+        {
+          "name": "Create Group",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"Trip to Goa\",\n  \"description\": \"Weekend trip with friends\",\n  \"member_ids\": []\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/api/v1/groups",
+              "host": ["{{base_url}}"],
+              "path": ["api", "v1", "groups"]
+            },
+            "description": "Create a new expense group"
+          },
+          "response": []
+        },
+        {
+          "name": "List Groups",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/api/v1/groups?page=1&page_size=10",
+              "host": ["{{base_url}}"],
+              "path": ["api", "v1", "groups"],
+              "query": [
+                {
+                  "key": "page",
+                  "value": "1"
+                },
+                {
+                  "key": "page_size",
+                  "value": "10"
+                }
+              ]
+            },
+            "description": "List all groups for current user"
+          },
+          "response": []
+        },
+        {
+          "name": "Get Group",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/api/v1/groups/{{group_id}}",
+              "host": ["{{base_url}}"],
+              "path": ["api", "v1", "groups", "{{group_id}}"]
+            },
+            "description": "Get group details with balances and simplified debts"
+          },
+          "response": []
+        },
+        {
+          "name": "Update Group",
+          "request": {
+            "method": "PATCH",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"Updated Group Name\",\n  \"description\": \"Updated description\"\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/api/v1/groups/{{group_id}}",
+              "host": ["{{base_url}}"],
+              "path": ["api", "v1", "groups", "{{group_id}}"]
+            },
+            "description": "Update group details (creator only)"
+          },
+          "response": []
+        },
+        {
+          "name": "Delete Group",
+          "request": {
+            "method": "DELETE",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/api/v1/groups/{{group_id}}",
+              "host": ["{{base_url}}"],
+              "path": ["api", "v1", "groups", "{{group_id}}"]
+            },
+            "description": "Delete a group (creator only)"
+          },
+          "response": []
+        },
+        {
+          "name": "Add Member",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"user_id\": \"user-uuid-here\"\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/api/v1/groups/{{group_id}}/members",
+              "host": ["{{base_url}}"],
+              "path": ["api", "v1", "groups", "{{group_id}}", "members"]
+            },
+            "description": "Add a member to the group"
+          },
+          "response": []
+        },
+        {
+          "name": "Remove Member",
+          "request": {
+            "method": "DELETE",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/api/v1/groups/{{group_id}}/members/{{user_id}}",
+              "host": ["{{base_url}}"],
+              "path": ["api", "v1", "groups", "{{group_id}}", "members", "{{user_id}}"]
+            },
+            "description": "Remove a member from the group"
+          },
+          "response": []
+        },
+        {
+          "name": "Get Group Balances",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/api/v1/groups/{{group_id}}/balances",
+              "host": ["{{base_url}}"],
+              "path": ["api", "v1", "groups", "{{group_id}}", "balances"]
+            },
+            "description": "Get balances for all members in the group"
+          },
+          "response": []
+        },
+        {
+          "name": "Get Simplified Debts",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/api/v1/groups/{{group_id}}/simplified-debts",
+              "host": ["{{base_url}}"],
+              "path": ["api", "v1", "groups", "{{group_id}}", "simplified-debts"]
+            },
+            "description": "Get optimized debt settlement transactions"
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Expenses",
+      "item": [
+        {
+          "name": "Create Expense (Equal Split)",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"description\": \"Dinner at Restaurant\",\n  \"amount\": \"120.00\",\n  \"category\": \"food\",\n  \"group_id\": \"{{group_id}}\",\n  \"split_type\": \"equal\",\n  \"shares\": [\n    {\"user_id\": \"user1-uuid\"},\n    {\"user_id\": \"user2-uuid\"},\n    {\"user_id\": \"user3-uuid\"}\n  ]\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/api/v1/expenses",
+              "host": ["{{base_url}}"],
+              "path": ["api", "v1", "expenses"]
+            },
+            "description": "Create expense with equal split among users"
+          },
+          "response": []
+        },
+        {
+          "name": "Create Expense (Exact Split)",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"description\": \"Hotel Booking\",\n  \"amount\": \"300.00\",\n  \"category\": \"housing\",\n  \"group_id\": \"{{group_id}}\",\n  \"split_type\": \"exact\",\n  \"shares\": [\n    {\"user_id\": \"user1-uuid\", \"amount\": \"100.00\"},\n    {\"user_id\": \"user2-uuid\", \"amount\": \"100.00\"},\n    {\"user_id\": \"user3-uuid\", \"amount\": \"100.00\"}\n  ]\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/api/v1/expenses",
+              "host": ["{{base_url}}"],
+              "path": ["api", "v1", "expenses"]
+            },
+            "description": "Create expense with exact amounts for each user"
+          },
+          "response": []
+        },
+        {
+          "name": "Create Expense (Percentage Split)",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"description\": \"Groceries\",\n  \"amount\": \"200.00\",\n  \"category\": \"food\",\n  \"group_id\": \"{{group_id}}\",\n  \"split_type\": \"percent\",\n  \"shares\": [\n    {\"user_id\": \"user1-uuid\", \"amount\": \"50\"},\n    {\"user_id\": \"user2-uuid\", \"amount\": \"30\"},\n    {\"user_id\": \"user3-uuid\", \"amount\": \"20\"}\n  ]\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/api/v1/expenses",
+              "host": ["{{base_url}}"],
+              "path": ["api", "v1", "expenses"]
+            },
+            "description": "Create expense with percentage-based split"
+          },
+          "response": []
+        },
+        {
+          "name": "List User Expenses",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/api/v1/expenses?page=1&page_size=10",
+              "host": ["{{base_url}}"],
+              "path": ["api", "v1", "expenses"],
+              "query": [
+                {
+                  "key": "page",
+                  "value": "1"
+                },
+                {
+                  "key": "page_size",
+                  "value": "10"
+                }
+              ]
+            },
+            "description": "List all expenses for current user"
+          },
+          "response": []
+        },
+        {
+          "name": "List Group Expenses",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/api/v1/expenses/group/{{group_id}}?page=1&page_size=10",
+              "host": ["{{base_url}}"],
+              "path": ["api", "v1", "expenses", "group", "{{group_id}}"],
+              "query": [
+                {
+                  "key": "page",
+                  "value": "1"
+                },
+                {
+                  "key": "page_size",
+                  "value": "10"
+                }
+              ]
+            },
+            "description": "List all expenses in a group"
+          },
+          "response": []
+        },
+        {
+          "name": "Get Expense",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/api/v1/expenses/{{expense_id}}",
+              "host": ["{{base_url}}"],
+              "path": ["api", "v1", "expenses", "{{expense_id}}"]
+            },
+            "description": "Get expense details"
+          },
+          "response": []
+        },
+        {
+          "name": "Update Expense",
+          "request": {
+            "method": "PATCH",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"description\": \"Updated description\",\n  \"amount\": \"150.00\"\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/api/v1/expenses/{{expense_id}}",
+              "host": ["{{base_url}}"],
+              "path": ["api", "v1", "expenses", "{{expense_id}}"]
+            },
+            "description": "Update expense details (payer only)"
+          },
+          "response": []
+        },
+        {
+          "name": "Delete Expense",
+          "request": {
+            "method": "DELETE",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/api/v1/expenses/{{expense_id}}",
+              "host": ["{{base_url}}"],
+              "path": ["api", "v1", "expenses", "{{expense_id}}"]
+            },
+            "description": "Delete an expense (payer only)"
+          },
+          "response": []
+        },
+        {
+          "name": "Get Expense Summary",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/api/v1/expenses/summary",
+              "host": ["{{base_url}}"],
+              "path": ["api", "v1", "expenses", "summary"]
+            },
+            "description": "Get expense summary statistics for current user"
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Settlements",
+      "item": [
+        {
+          "name": "Create Settlement",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"to_user_id\": \"user-uuid-here\",\n  \"group_id\": \"{{group_id}}\",\n  \"amount\": \"50.00\",\n  \"notes\": \"Payment for dinner\"\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/api/v1/settlements",
+              "host": ["{{base_url}}"],
+              "path": ["api", "v1", "settlements"]
+            },
+            "description": "Record a settlement payment"
+          },
+          "response": []
+        },
+        {
+          "name": "List User Settlements",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/api/v1/settlements?page=1&page_size=10",
+              "host": ["{{base_url}}"],
+              "path": ["api", "v1", "settlements"],
+              "query": [
+                {
+                  "key": "page",
+                  "value": "1"
+                },
+                {
+                  "key": "page_size",
+                  "value": "10"
+                }
+              ]
+            },
+            "description": "List all settlements for current user"
+          },
+          "response": []
+        },
+        {
+          "name": "List Group Settlements",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/api/v1/settlements/group/{{group_id}}?page=1&page_size=10",
+              "host": ["{{base_url}}"],
+              "path": ["api", "v1", "settlements", "group", "{{group_id}}"],
+              "query": [
+                {
+                  "key": "page",
+                  "value": "1"
+                },
+                {
+                  "key": "page_size",
+                  "value": "10"
+                }
+              ]
+            },
+            "description": "List all settlements in a group"
+          },
+          "response": []
+        },
+        {
+          "name": "Get Settlement",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/api/v1/settlements/{{settlement_id}}",
+              "host": ["{{base_url}}"],
+              "path": ["api", "v1", "settlements", "{{settlement_id}}"]
+            },
+            "description": "Get settlement details"
+          },
+          "response": []
+        },
+        {
+          "name": "Update Settlement",
+          "request": {
+            "method": "PATCH",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"notes\": \"Updated notes\"\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/api/v1/settlements/{{settlement_id}}",
+              "host": ["{{base_url}}"],
+              "path": ["api", "v1", "settlements", "{{settlement_id}}"]
+            },
+            "description": "Update settlement notes (payer only)"
+          },
+          "response": []
+        },
+        {
+          "name": "Cancel Settlement",
+          "request": {
+            "method": "DELETE",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/api/v1/settlements/{{settlement_id}}",
+              "host": ["{{base_url}}"],
+              "path": ["api", "v1", "settlements", "{{settlement_id}}"]
+            },
+            "description": "Cancel a settlement (payer only)"
+          },
+          "response": []
+        },
+        {
+          "name": "Get Settlement Summary",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/api/v1/settlements/summary",
+              "host": ["{{base_url}}"],
+              "path": ["api", "v1", "settlements", "summary"]
+            },
+            "description": "Get settlement summary statistics"
+          },
+          "response": []
+        },
+        {
+          "name": "Get Balance With User",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/api/v1/settlements/balance/{{user_id}}",
+              "host": ["{{base_url}}"],
+              "path": ["api", "v1", "settlements", "balance", "{{user_id}}"]
+            },
+            "description": "Get net balance between current user and another user"
+          },
+          "response": []
+        }
+      ]
+    }
+  ],
+  "event": [
+    {
+      "listen": "prerequest",
+      "script": {
+        "type": "text/javascript",
+        "exec": [""]
+      }
+    },
+    {
+      "listen": "test",
+      "script": {
+        "type": "text/javascript",
+        "exec": [""]
+      }
+    }
+  ],
+  "variable": [
+    {
+      "key": "base_url",
+      "value": "http://localhost:8080",
+      "type": "string"
+    },
+    {
+      "key": "token",
+      "value": "",
+      "type": "string"
+    },
+    {
+      "key": "group_id",
+      "value": "",
+      "type": "string"
+    },
+    {
+      "key": "expense_id",
+      "value": "",
+      "type": "string"
+    },
+    {
+      "key": "settlement_id",
+      "value": "",
+      "type": "string"
+    },
+    {
+      "key": "user_id",
+      "value": "",
+      "type": "string"
+    }
+  ]
+}
